@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aditya Singh — Developer & Innovator</title>
-<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #020818;
@@ -33,9 +33,10 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--white);
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   cursor: none;
+  line-height: 1.6;
 }
 
 /* Custom Cursor */
@@ -90,13 +91,13 @@ nav {
 }
 
 .nav-logo {
-  font-family: 'Oxanium', monospace;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.4rem;
   font-weight: 800;
   background: linear-gradient(135deg, var(--blue-3), var(--cyan));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .nav-links {
@@ -187,12 +188,12 @@ nav {
 }
 
 .hero-text h1 {
-  font-family: 'Oxanium', monospace;
-  font-size: 4.5rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 4.8rem;
   font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -1px;
-  margin-bottom: 8px;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  margin-bottom: 12px;
 }
 
 .hero-text h1 .name-line {
@@ -485,14 +486,14 @@ section {
 }
 
 .section-title {
-  font-family: 'Oxanium', monospace;
-  font-size: 3rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 3.2rem;
   font-weight: 800;
   line-height: 1;
   background: linear-gradient(135deg, #fff 0%, var(--blue-4) 60%, var(--cyan) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: -1px;
+  letter-spacing: -2px;
 }
 
 .section-divider {
@@ -554,11 +555,12 @@ section {
 }
 
 .skill-name {
-  font-family: 'Oxanium', monospace;
-  font-size: 1.1rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 8px;
+  letter-spacing: -0.5px;
 }
 
 .skill-desc {
@@ -719,7 +721,15 @@ section {
   position: absolute;
   top: 0; left: 0;
   z-index: 0;
-  transition: transform 0.5s;
+  transition: opacity 0.8s ease, transform 0.5s ease;
+}
+
+/* Slider Styles */
+.slider-img {
+  opacity: 0;
+}
+.slider-img.active {
+  opacity: 1;
 }
 
 .event-card:hover .event-photo-area img, 
@@ -1521,8 +1531,9 @@ footer {
 
     <div class="events-grid">
       <div class="event-card reveal">
-        <div class="event-photo-area">
-          <img src="iit_kgp.jpeg" alt="IIT KGP Robotics">
+        <div class="event-photo-area auto-slider">
+          <img src="IIT kgp.jpeg" alt="IIT KGP Robotics" class="slider-img active">
+          <img src="IIT kgp (2).jpeg" alt="IIT KGP Robotics 2" class="slider-img">
           <div class="event-photo-icon">🤖</div>
         </div>
         <div class="event-body">
@@ -1554,8 +1565,9 @@ footer {
       </div>
 
       <div class="event-card reveal">
-        <div class="event-photo-area">
-          <img src="cryptonox.jpeg" alt="Cryptonox Hackathon">
+        <div class="event-photo-area auto-slider">
+          <img src="Heritage hackathon.jpeg" alt="Heritage Hackathon" class="slider-img active">
+          <img src="Heritage hackathon (2).jpeg" alt="Heritage Hackathon 2" class="slider-img">
           <div class="event-photo-icon">🔐</div>
         </div>
         <div class="event-body">
@@ -1633,8 +1645,14 @@ footer {
 
     <div class="wins-grid">
       <div class="win-card reveal">
-        <div class="win-photo-area">
-          <img src="ju_hackathon.jpeg" alt="JU Hackathon">
+        <div class="win-photo-area auto-slider">
+          <img src="Ju hackathon.jpeg" alt="JU Hackathon" class="slider-img active">
+          <img src="Ju hackathon (2).jpeg" alt="JU Hackathon 2" class="slider-img">
+          <img src="Ju hackathon (3).jpeg" alt="JU Hackathon 3" class="slider-img">
+          <img src="Ju hackathon (4).jpeg" alt="JU Hackathon 4" class="slider-img">
+          <img src="Ju hackathon (5).jpeg" alt="JU Hackathon 5" class="slider-img">
+          <img src="Ju hackathon (6).jpeg" alt="JU Hackathon 6" class="slider-img">
+          <img src="JU hackathon 3rd position.jpeg" alt="JU Hackathon Award" class="slider-img">
           <div class="win-trophy">🥉</div>
         </div>
         <div class="win-body">
@@ -1645,8 +1663,10 @@ footer {
       </div>
 
       <div class="win-card reveal">
-        <div class="win-photo-area">
-          <img src="magnifest.jpeg" alt="Magnifest 3.0">
+        <div class="win-photo-area auto-slider">
+          <img src="Magnifest 3.0.jpeg" alt="Magnifest 3.0" class="slider-img active">
+          <img src="Magnifest3.0.jpeg" alt="Magnifest 3.0 Photo 2" class="slider-img">
+          <img src="Magnefest3.0.jpeg" alt="Magnifest 3.0 Photo 3" class="slider-img">
           <div class="win-trophy">🥉</div>
         </div>
         <div class="win-body">
@@ -1657,8 +1677,10 @@ footer {
       </div>
 
       <div class="win-card reveal" style="border-color:rgba(30,111,255,0.3)">
-        <div class="win-photo-area">
-          <img src="sih_2025.jpeg" alt="SIH 2025">
+        <div class="win-photo-area auto-slider">
+          <img src="Sih.jpeg" alt="SIH 2025" class="slider-img active">
+          <img src="Sih (2).jpeg" alt="SIH Photo 2" class="slider-img">
+          <img src="Sih hackathon.jpeg" alt="SIH Photo 3" class="slider-img">
           <div class="win-trophy">🇮🇳</div>
         </div>
         <div class="win-body">
@@ -2078,6 +2100,23 @@ window.addEventListener('scroll', () => {
     a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--cyan)' : '';
   });
 });
+
+// ========== AUTO SLIDER ==========
+function initSliders() {
+  const sliders = document.querySelectorAll('.auto-slider');
+  sliders.forEach(slider => {
+    const images = slider.querySelectorAll('.slider-img');
+    if (images.length <= 1) return;
+    
+    let current = 0;
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 3000 + Math.random() * 2000); // Randomized timing for natural look
+  });
+}
+initSliders();
 </script>
 </body>
 </html>
