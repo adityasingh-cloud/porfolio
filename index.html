@@ -7,15 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #030807;
-  --lab-green: #004733;
-  --meth-blue: #00f2ff;
-  --desert-gold: #e5b181;
-  --surface: rgba(10, 20, 15, 0.8);
-  --border: rgba(0, 71, 51, 0.3);
-  --yellow: #f8db08; /* Heisenberg Yellow */
-  --white: #f5f5f5;
-  --white-2: #a0a0a0;
+  --bg: #030303;
+  --bg-2: #000000;
+  --red-main: #b11313; /* Crimson / Spidey Red */
+  --red-light: #ff3c3c;
+  --red-dark: #630000;
+  --red-glow: rgba(177, 19, 19, 0.5);
+  --white: #ffffff;
+  --white-dim: rgba(255, 255, 255, 0.8);
+  --border: rgba(177, 19, 19, 0.3);
+  --surface: rgba(10, 10, 10, 0.9);
+  --cyan: #ff0000;
+  --blue-3: #b11313;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,36 +32,23 @@ body {
   overflow-x: hidden;
   cursor: none;
   line-height: 1.6;
-  background-image: radial-gradient(circle at 50% 50%, rgba(0, 71, 51, 0.1) 0%, transparent 80%);
 }
 
-.periodic {
-  display: inline-block;
-  background: var(--lab-green);
-  color: #fff;
-  padding: 0.1em 0.3em;
-  border: 2px solid #fff;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 800;
-  line-height: 1;
-  box-shadow: 0 0 15px rgba(0, 71, 51, 0.5);
-  margin-right: 4px;
-}
-
+/* Custom Cursor */
 #cursor {
   width: 12px; height: 12px;
-  background: var(--yellow);
+  background: var(--red-primary);
   border-radius: 50%;
   position: fixed;
   top: 0; left: 0;
   pointer-events: none;
   z-index: 9999;
   transition: transform 0.1s, background 0.3s;
-  box-shadow: 0 0 20px var(--yellow), 0 0 40px rgba(255,221,0,0.3);
+  box-shadow: 0 0 20px var(--red-primary), 0 0 40px var(--red-glow);
 }
 #cursor-trail {
   width: 36px; height: 36px;
-  border: 1.5px solid rgba(255,221,0,0.5);
+  border: 1.5px solid var(--red-glow);
   border-radius: 50%;
   position: fixed;
   top: 0; left: 0;
@@ -67,6 +57,7 @@ body {
   transition: transform 0.15s ease, left 0.12s ease, top 0.12s ease;
 }
 
+/* Canvas background */
 #canvas-bg {
   position: fixed;
   top: 0; left: 0;
@@ -75,10 +66,12 @@ body {
   pointer-events: none;
 }
 
+/* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--red-primary); border-radius: 4px; }
 
+/* ========== NAV ========== */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -87,7 +80,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(8,8,8,0.85);
+  background: rgba(0,0,0,0.85);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
@@ -96,7 +89,8 @@ nav {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--yellow);
+  color: var(--red-primary);
+  text-shadow: 0 0 15px var(--red-glow);
   letter-spacing: 1px;
 }
 
@@ -108,7 +102,7 @@ nav {
 
 .nav-links a {
   text-decoration: none;
-  color: var(--white-2);
+  color: var(--white-dim);
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -122,23 +116,13 @@ nav {
   position: absolute;
   bottom: -4px; left: 0;
   width: 0; height: 1px;
-  background: var(--yellow);
+  background: var(--red-primary);
   transition: width 0.3s;
 }
-.nav-links a:hover { color: var(--yellow); }
+.nav-links a:hover { color: var(--red-primary); }
 .nav-links a:hover::after { width: 100%; }
 
-.nav-cta {
-  background: var(--yellow);
-  color: #000;
-  padding: 10px 22px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  transition: all 0.3s;
-  text-decoration: none;
-}
-
+/* ========== HERO ========== */
 #hero {
   position: relative;
   min-height: 100vh;
@@ -153,8 +137,8 @@ nav {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(226, 54, 54, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(226, 54, 54, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
 }
@@ -174,63 +158,142 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--yellow-dim);
-  border: 1px solid var(--yellow);
+  background: rgba(226, 54, 54, 0.1);
+  border: 1px solid var(--border);
   border-radius: 100px;
   padding: 6px 16px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
-  color: var(--yellow);
+  color: var(--red-primary);
   margin-bottom: 24px;
   letter-spacing: 1px;
 }
 .pulse-dot {
   width: 6px; height: 6px;
-  background: var(--yellow);
+  background: var(--red-primary);
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,221,0,0.5); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(255,221,0,0); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(226, 54, 54, 0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(226, 54, 54, 0); }
 }
 
 .hero-text h1 {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 5.5rem;
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -4px;
+  line-height: 0.9;
+  letter-spacing: -3px;
   margin-bottom: 12px;
+  color: #fff;
 }
 
-.hero-text h1 .name-line { display: block; }
-.hero-text h1 .name-1 { color: var(--yellow); }
+.hero-text h1 .name-line {
+  display: block;
+}
+
+.hero-text h1 .name-red {
+  color: var(--red-main);
+  text-shadow: 0 0 30px var(--red-glow);
+}
 
 .hero-sub {
-  color: var(--white-2);
-  font-size: 1rem;
-  margin: 20px 0 36px;
+  font-size: 1.1rem;
+  color: var(--white-dim);
   font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 30px;
 }
 
-.hero-cta { display: flex; gap: 16px; }
+.hero-roles {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.role-badge {
+  background: rgba(226, 54, 54, 0.1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--red-primary);
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+.role-badge:hover {
+  background: var(--red-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.hero-desc {
+  color: var(--white-dim);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 20px 0 36px;
+  max-width: 500px;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--yellow);
-  color: #000;
+  background: var(--red-primary);
+  color: #fff;
   text-decoration: none;
   padding: 14px 32px;
   border-radius: 8px;
   font-weight: 700;
   font-size: 0.85rem;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   font-family: 'JetBrains Mono', monospace;
   transition: all 0.3s;
+  box-shadow: 0 4px 24px var(--red-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 40px var(--red-glow);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--red-primary);
+  color: var(--red-primary);
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s;
+}
+.btn-outline:hover {
+  background: var(--red-primary);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Hero Photo */
+.hero-photo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .photo-frame {
@@ -239,19 +302,49 @@ nav {
   height: 380px;
 }
 
+.photo-glow-ring {
+  position: absolute;
+  inset: -20px;
+  border-radius: 30px;
+  background: conic-gradient(from 0deg, var(--red-primary), var(--black), var(--red-primary));
+  animation: spin 8s linear infinite;
+  opacity: 0.4;
+  filter: blur(8px);
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.photo-border {
+  position: absolute;
+  inset: -2px;
+  border-radius: 24px;
+  background: var(--red-primary);
+  padding: 2px;
+}
+
 .photo-inner {
   width: 320px;
   height: 380px;
   border-radius: 22px;
   overflow: hidden;
-  background: #1a1a1a;
-  border: 1px solid var(--border);
+  background: #000;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .photo-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* ========== SECTION STYLES ========== */
+section {
+  position: relative;
+  z-index: 1;
 }
 
 .section-wrap {
@@ -261,9 +354,12 @@ nav {
 }
 
 .section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
-  color: var(--yellow);
+  color: var(--red-primary);
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 14px;
@@ -271,34 +367,14 @@ nav {
 
 .section-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 2.8rem;
+  font-size: 3.2rem;
   font-weight: 800;
   line-height: 1;
-  color: var(--white);
-  letter-spacing: -2px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.section-title span.periodic {
-  background: var(--lab-green);
   color: #fff;
-  padding: 4px 8px;
-  border: 2px solid #fff;
-  font-size: 1.5rem;
-  font-family: 'JetBrains Mono', monospace;
-  line-height: 1;
+  letter-spacing: -2px;
 }
 
-.section-divider {
-  width: 50px;
-  height: 3px;
-  background: var(--meth-blue);
-  margin-top: 15px;
-  border-radius: 4px;
-}
-
+/* ========== SKILLS ========== */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -314,28 +390,62 @@ nav {
 }
 
 .skill-card:hover {
-  border-color: var(--yellow);
+  transform: translateY(-6px);
+  border-color: var(--red-primary);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.skill-icon { font-size: 2.2rem; margin-bottom: 16px; display: block; }
-.skill-name { font-weight: 700; margin-bottom: 8px; }
-.skill-desc { font-size: 0.8rem; color: var(--white-2); line-height: 1.6; }
+.skill-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
 
-.skill-bar-fill { height: 100%; background: var(--yellow); }
+.skill-bar-fill {
+  background: var(--red-primary);
+}
+
+/* ========== FOOTER ========== */
+footer {
+  text-align: center;
+  padding: 60px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--red-primary);
+}
 
 .reveal {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-.sep { height: 1px; background: var(--border); margin: 0 60px; }
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.orb-1 { width: 400px; height: 400px; background: rgba(226, 54, 54, 0.05); top: -100px; right: -100px; }
+.orb-2 { width: 300px; height: 300px; background: rgba(226, 54, 54, 0.03); bottom: 100px; left: 10%; }
 
 @media (max-width: 900px) {
   .nav-links { display: none; }
-  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero-inner { grid-template-columns: 1fr; padding: 100px 24px 60px; text-align: center; }
   .hero-text h1 { font-size: 3rem; }
+  .hero-photo-wrap { order: -1; }
 }
 </style>
 </head>
@@ -352,37 +462,87 @@ nav {
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#wins">Awards</a></li>
-    <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#social">Contact</a></li>
   </ul>
-  <a href="#social" class="nav-cta">Let's Talk</a>
 </nav>
 
 <section id="about">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-grid-lines"></div>
   <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-badge reveal">
-        <span class="pulse-dot"></span>
-        99.1% Pure Blue Sky Code Edition
+      <div class="hero-text">
+        <div class="hero-badge reveal">
+          <span class="pulse-dot"></span>
+          Protecting the Neighborhood — 2026
+        </div>
+        <h1 class="reveal">
+          <span class="name-line">ADITYA</span>
+          <span class="name-line name-red">SINGH.</span>
+        </h1>
+        <p class="hero-sub reveal">
+          Full Stack Vigilante  ·  Web Slinger  ·  Hell's Kitchen Dev
+        </p>
+      <div class="hero-roles">
+        <span class="role-badge">Full Stack Dev</span>
+        <span class="role-badge">App Developer</span>
+        <span class="role-badge">UI/UX Designer</span>
+        <span class="role-badge">AI/ML Enthusiast</span>
+        <span class="role-badge">DB Management</span>
       </div>
-      <h1 class="reveal">
-        <span class="name-line name-1"><span class="periodic">Ad</span>ITYA</span>
-        <span class="name-line"><span class="periodic">Si</span>NGH.</span>
-      </h1>
-      <p class="hero-sub reveal">
-        Graphic Designer  ·  Full Stack Developer  ·  App Developer  ·  UI / UX Architect
+      <p class="hero-desc">
+        B.Tech CSE undergraduate at <strong style="color:var(--blue-4)">Adamas University</strong>, Kolkata.
+        Passionate innovator, hackathon competitor and explorer who loves building tech that makes a difference.
+        Always eager to learn and explore new frontiers in AI, ML and emerging technologies.
       </p>
       <div class="hero-cta">
-        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#projects" class="btn-primary">
+          <span>⚡</span> View Projects
+        </a>
+        <a href="#social" class="btn-outline">
+          <span>✉</span> Get in Touch
+        </a>
       </div>
     </div>
 
     <div class="hero-photo-wrap reveal">
+      <!-- Floating badges -->
+      <div class="float-badge left">
+        <span style="color:var(--gold)">🏆</span>
+        <span style="font-size:0.7rem;color:var(--white2)">3x Award Winner</span>
+      </div>
+      <div class="float-badge right">
+        <span>🚀</span>
+        <span style="font-size:0.7rem;color:var(--white2)">SIH 2025 Selected</span>
+      </div>
+
       <div class="photo-frame">
-        <div class="photo-inner">
-           <img src="aditya.jpg" alt="Aditya Singh">
+        <div class="photo-glow-ring"></div>
+        <div class="photo-border">
+          <div class="photo-inner">
+             <img src="aditya.jpg" alt="Aditya Singh">
+          </div>
+        </div>
+        <div class="corner-accent tl"></div>
+        <div class="corner-accent tr"></div>
+        <div class="corner-accent bl"></div>
+        <div class="corner-accent br"></div>
+      </div>
+
+      <!-- Stats -->
+      <div class="photo-stats">
+        <div class="stat-card">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Hackathons</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Awards</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Clubs</div>
         </div>
       </div>
     </div>
@@ -391,6 +551,7 @@ nav {
 
 <div class="sep"></div>
 
+<!-- SKILLS -->
 <section id="skills">
   <div class="section-wrap">
     <div class="section-header reveal">
@@ -400,14 +561,31 @@ nav {
     </div>
     <div class="skills-grid">
       <div class="skill-card reveal">
-        <span class="skill-icon">🎨</span>
-        <div class="skill-name">Graphic Designing</div>
-        <div class="skill-desc">Expert in cinematic visual communication, branding, and professional digital assets.</div>
+        <span class="skill-icon">🌐</span>
+        <div class="skill-name">Full Stack Development</div>
+        <div class="skill-desc">Building end-to-end web applications with modern frameworks and clean architecture.</div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Proficiency</span><span>85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
       </div>
       <div class="skill-card reveal">
-        <span class="skill-icon">🖼️</span>
-        <div class="skill-name">UI / UX Architecture</div>
-        <div class="skill-desc">Designing lab-grade, high-performance interfaces with a focus on immersive aesthetics.</div>
+        <span class="skill-icon">📱</span>
+        <div class="skill-name">App Development</div>
+        <div class="skill-desc">Crafting cross-platform mobile applications with seamless user experience.</div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Proficiency</span><span>80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">🎨</span>
+        <div class="skill-name">UI/UX Design</div>
+        <div class="skill-desc">Designing intuitive, visually compelling interfaces with human-centered principles.</div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Proficiency</span><span>82%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%"></div></div>
+        </div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">🗄️</span>
@@ -421,17 +599,20 @@ nav {
       <div class="skill-card reveal">
         <span class="skill-icon">🤖</span>
         <div class="skill-name">AI & Machine Learning</div>
-        <div class="skill-desc">Exploration of neural networks, data modeling, and integrating AI capabilities into real-world applications.</div>
+        <div class="skill-desc">Exploring intelligent systems, neural networks, and data-driven solutions. Eagerly learning.</div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Proficiency</span><span>65%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:65%"></div></div>
+        </div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">🔒</span>
         <div class="skill-name">Cybersecurity</div>
-        <div class="skill-desc">Understanding of secure architecture, vulnerability assessment, and participating in CTF competitions.</div>
-      </div>
-      <div class="skill-card reveal">
-        <span class="skill-icon">🗄️</span>
-        <div class="skill-name">Database Management</div>
-        <div class="skill-desc">Designing and optimizing relational and NoSQL databases for performance at scale.</div>
+        <div class="skill-desc">Participated in cybersecurity hackathons, exploring threat modeling and secure systems.</div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Proficiency</span><span>60%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -501,12 +682,12 @@ nav {
 
 <div class="sep"></div>
 
-<!-- HACKATHONS / EVENTS -->
+<!-- HACKATHONS & EVENTS -->
 <section id="events">
   <div class="section-wrap">
     <div class="section-header reveal">
-      <div class="section-tag">Hackathons & Operations</div>
-      <div class="section-title">Events</div>
+      <div class="section-tag">Competitions & Exposure</div>
+      <div class="section-title">Hackathons & Events</div>
       <div class="section-divider"></div>
     </div>
 
@@ -518,26 +699,28 @@ nav {
           <div class="event-photo-icon">🤖</div>
         </div>
         <div class="event-body">
-          <div class="event-org">IIT KHARAGPUR</div>
+          <div class="event-org">IIT Kharagpur</div>
           <div class="event-name">Kshitij 2026 — Technical Fest</div>
           <div class="event-tags">
+            <span class="event-tag">Robo Sumo</span>
+            <span class="event-tag">Robo Blitz</span>
             <span class="event-tag">Robotics</span>
-            <span class="event-tag">Inter-College</span>
+            <span class="event-tag">3 Events</span>
           </div>
         </div>
       </div>
 
       <div class="event-card reveal">
-        <div class="event-photo-area auto-slider">
-          <img src="iit_bombay.jpeg" alt="IIT Bombay Zonal" class="slider-img active">
-          <img src="iit_bombay_2.jpeg" alt="IIT Bombay Zonal 2" class="slider-img">
+        <div class="event-photo-area">
+          <img src="iit_bombay.jpeg" alt="IIT Bombay Zonal">
           <div class="event-photo-icon">⚡</div>
         </div>
         <div class="event-body">
-          <div class="event-org">IIT BOMBAY</div>
+          <div class="event-org">IIT Bombay</div>
           <div class="event-name">Zonal Competition</div>
           <div class="event-tags">
             <span class="event-tag">Zonal Level</span>
+            <span class="event-tag">IIT Bombay</span>
             <span class="event-tag">Technical</span>
           </div>
         </div>
@@ -550,27 +733,29 @@ nav {
           <div class="event-photo-icon">🔐</div>
         </div>
         <div class="event-body">
-          <div class="event-org">HERITAGE INSTITUTE</div>
+          <div class="event-org">Heritage Institute</div>
           <div class="event-name">Cryptonox — Cybersecurity Hackathon</div>
           <div class="event-tags">
             <span class="event-tag">Cybersecurity</span>
+            <span class="event-tag">Hackathon</span>
             <span class="event-tag">CTF</span>
           </div>
         </div>
       </div>
 
       <div class="event-card reveal">
-        <div class="event-photo-area auto-slider">
-          <img src="gdg.png" alt="GDG DevFest" class="slider-img active">
-          <img src="gdg_2.png" alt="GDG DevFest 2" class="slider-img">
+        <div class="event-photo-area">
+          <img src="gdg.png" alt="GDG DevFest">
           <div class="event-photo-icon">🌐</div>
         </div>
         <div class="event-body">
-          <div class="event-org">GOOGLE DEVELOPER GROUP</div>
+          <div class="event-org">Google Developer Group</div>
           <div class="event-name">PreDevFest & DevFest</div>
           <div class="event-tags">
             <span class="event-tag">GDG</span>
+            <span class="event-tag">DevFest</span>
             <span class="event-tag">Google</span>
+            <span class="event-tag">Tech Community</span>
           </div>
         </div>
       </div>
@@ -579,30 +764,33 @@ nav {
         <div class="event-photo-area auto-slider">
           <img src="Bhawanipur.jpg" alt="Bhawanipur Bonfire" class="slider-img active">
           <img src="Bhawanipur (2).jpg" alt="Bhawanipur Bonfire 2" class="slider-img">
+          <img src="Bhawanipur (3).jpg" alt="Bhawanipur Bonfire 3" class="slider-img">
+          <img src="Bhawanipur (4).jpg" alt="Bhawanipur Bonfire 4" class="slider-img">
           <div class="event-photo-icon">🔥</div>
         </div>
         <div class="event-body">
-          <div class="event-org">BHAWANIPUR SOCIETY</div>
+          <div class="event-org">Bhawanipur Education Society</div>
           <div class="event-name">Bonfire '26 — Venture Vyapaar</div>
           <div class="event-tags">
             <span class="event-tag">Entrepreneurship</span>
             <span class="event-tag">Startup</span>
+            <span class="event-tag">Business Pitch</span>
           </div>
         </div>
       </div>
 
       <div class="event-card reveal">
-        <div class="event-photo-area auto-slider">
-          <img src="poster_making.jpeg" alt="Poster Making" class="slider-img active">
-          <img src="poster_making_2.jpeg" alt="Poster Making 2" class="slider-img">
+        <div class="event-photo-area">
+          <img src="poster_making.jpeg" alt="Poster Making Competition">
           <div class="event-photo-icon">🎨</div>
         </div>
         <div class="event-body">
-          <div class="event-org">ADAMAS UNIVERSITY</div>
+          <div class="event-org">Adamas University</div>
           <div class="event-name">Poster Making Competition</div>
           <div class="event-tags">
             <span class="event-tag">Design</span>
             <span class="event-tag">Creative</span>
+            <span class="event-tag">In-house</span>
           </div>
         </div>
       </div>
@@ -626,12 +814,17 @@ nav {
         <div class="win-photo-area auto-slider">
           <img src="Ju hackathon.jpeg" alt="JU Hackathon" class="slider-img active">
           <img src="Ju hackathon (2).jpeg" alt="JU Hackathon 2" class="slider-img">
+          <img src="Ju hackathon (3).jpeg" alt="JU Hackathon 3" class="slider-img">
+          <img src="Ju hackathon (4).jpeg" alt="JU Hackathon 4" class="slider-img">
+          <img src="Ju hackathon (5).jpeg" alt="JU Hackathon 5" class="slider-img">
+          <img src="Ju hackathon (6).jpeg" alt="JU Hackathon 6" class="slider-img">
+          <img src="JU hackathon 3rd position.jpeg" alt="JU Hackathon Award" class="slider-img">
           <div class="win-trophy">🥉</div>
         </div>
         <div class="win-body">
           <div class="win-position">🥉 3rd Position</div>
           <div class="win-name">JU Hackathon — IoT Challenge</div>
-          <div class="win-desc">Jadavpur University · IoT Innovation</div>
+          <div class="win-desc">Jadavpur University · IoT Innovation Hackathon</div>
         </div>
       </div>
 
@@ -639,25 +832,27 @@ nav {
         <div class="win-photo-area auto-slider">
           <img src="Magnifest 3.0.jpeg" alt="Magnifest 3.0" class="slider-img active">
           <img src="Magnifest3.0.jpeg" alt="Magnifest 3.0 Photo 2" class="slider-img">
+          <img src="Magnefest3.0.jpeg" alt="Magnifest 3.0 Photo 3" class="slider-img">
           <div class="win-trophy">🥉</div>
         </div>
         <div class="win-body">
           <div class="win-position">🥉 3rd Position</div>
           <div class="win-name">Magnifest 3.0 — Startup Pitch</div>
-          <div class="win-desc">Startup pitch competition</div>
+          <div class="win-desc">Startup pitch competition · Business & Innovation</div>
         </div>
       </div>
 
       <div class="win-card reveal" style="border-color:rgba(30,111,255,0.3)">
         <div class="win-photo-area auto-slider">
-          <img src="sih.jpeg" alt="SIH 2025" class="slider-img active">
-          <img src="sih_2.jpeg" alt="SIH Photo 2" class="slider-img">
+          <img src="Sih.jpeg" alt="SIH 2025" class="slider-img active">
+          <img src="Sih (2).jpeg" alt="SIH Photo 2" class="slider-img">
+          <img src="Sih hackathon.jpeg" alt="SIH Photo 3" class="slider-img">
           <div class="win-trophy">🇮🇳</div>
         </div>
         <div class="win-body">
           <div class="win-position" style="color:var(--blue-4);border-color:rgba(30,111,255,0.4);background:rgba(30,111,255,0.1)">✅ Selected</div>
           <div class="win-name">Smart India Hackathon 2025</div>
-          <div class="win-desc">National Level · Govt of India</div>
+          <div class="win-desc">Internal Selection · National Level · Government of India</div>
         </div>
       </div>
     </div>
@@ -683,7 +878,7 @@ nav {
             <div class="exp-org">Gameliminals Club · Adamas University</div>
             <div class="exp-badge">⭐ Founding Member</div>
             <p style="margin-top:12px;font-size:0.82rem;color:var(--white2);font-family:'JetBrains Mono',monospace;line-height:1.6">
-              Founding member and Marketing Head of Gameliminals, the gaming and innovation club at Adamas University.
+              Founding member and Marketing Head of Gameliminals, the gaming and innovation club at Adamas University. Led marketing strategy, event promotion and brand building.
             </p>
           </div>
           <img src="gameliminals.jpeg" alt="Gameliminals" style="width:100px; height:100px; object-fit:cover; border-radius:12px; border:1px solid rgba(30,111,255,0.2); flex-shrink:0;">
@@ -695,7 +890,25 @@ nav {
         <div class="exp-org">Robotics & AI Club · Adamas University</div>
         <div class="exp-badge">🤖 Robotics & Artificial Intelligence</div>
         <p style="margin-top:12px;font-size:0.82rem;color:var(--white2);font-family:'JetBrains Mono',monospace;line-height:1.6">
-          Active member of the Robotics and AI club. Participated in hands-on robotics projects.
+          Active member of the Robotics and AI club. Participated in hands-on robotics projects, competed in inter-college robot events and explored AI applications in robotics.
+        </p>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-role">Active Member</div>
+        <div class="exp-org">Cy Coders Club · Adamas University</div>
+        <div class="exp-badge">💻 Coding & Development</div>
+        <p style="margin-top:12px;font-size:0.82rem;color:var(--white2);font-family:'JetBrains Mono',monospace;line-height:1.6">
+          Active coder and member of the Cy Coders Club. Engaged in collaborative coding sessions, hackathons and skill-building workshops with fellow developers.
+        </p>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-role">Active Member</div>
+        <div class="exp-org">Entrepreneurship Club · Adamas University</div>
+        <div class="exp-badge">💡 Innovation & Startup Culture</div>
+        <p style="margin-top:12px;font-size:0.82rem;color:var(--white2);font-family:'JetBrains Mono',monospace;line-height:1.6">
+          Active member of the Entrepreneurship Club, engaging with startup culture, business pitching events and innovation challenges. Won 3rd position in startup pitch at Magnifest 3.0.
         </p>
       </div>
     </div>
@@ -716,30 +929,90 @@ nav {
     <div class="projects-grid">
       <div class="project-card reveal">
         <div class="project-num">01</div>
-        <div class="project-photo auto-slider">
-          <img src="project_web.png" alt="Web App Project" class="slider-img active">
-          <img src="project_web_2.png" alt="Web App Project 2" class="slider-img">
+        <div class="project-photo">
+          <img src="project_web.png" alt="Web App Project">
         </div>
         <div class="project-icon">🌐</div>
-        <div class="project-name">Full Stack Web App</div>
-        <div class="project-desc">A dynamic, responsive web application with user authentication.</div>
+        <div class="project-name">Full Stack Web Application</div>
+        <div class="project-desc">A dynamic, responsive web application with user authentication, real-time features and a clean, modern interface.</div>
         <div class="project-stack">
           <span class="stack-tag">React</span>
           <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">MongoDB</span>
         </div>
       </div>
+
       <div class="project-card reveal">
         <div class="project-num">02</div>
-        <div class="project-photo auto-slider">
-          <img src="project_mobile.png" alt="Mobile App Project" class="slider-img active">
-          <img src="project_mobile_2.png" alt="Mobile App Project 2" class="slider-img">
+        <div class="project-photo">
+          <img src="project_mobile.png" alt="Mobile App Project">
         </div>
         <div class="project-icon">📱</div>
         <div class="project-name">Mobile Application</div>
-        <div class="project-desc">Cross-platform mobile app delivering seamless UX.</div>
+        <div class="project-desc">A cross-platform mobile app delivering seamless UX across Android and iOS with smooth animations.</div>
         <div class="project-stack">
           <span class="stack-tag">React Native</span>
           <span class="stack-tag">Firebase</span>
+          <span class="stack-tag">UI/UX</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">03</div>
+        <div class="project-photo">
+          <img src="ju_hackathon.jpeg" alt="IoT Project">
+        </div>
+        <div class="project-icon">🤖</div>
+        <div class="project-name">IoT Hackathon Project</div>
+        <div class="project-desc">Award-winning IoT project developed at JU Hackathon. Integrated hardware sensors with a smart dashboard.</div>
+        <div class="project-stack">
+          <span class="stack-tag">IoT</span>
+          <span class="stack-tag">Arduino</span>
+          <span class="stack-tag">Python</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">04</div>
+        <div class="project-photo">
+          <img src="cryptonox.jpeg" alt="Cybersecurity Project">
+        </div>
+        <div class="project-icon">🔒</div>
+        <div class="project-name">Cybersecurity Project</div>
+        <div class="project-desc">Security-focused application developed during Heritage Cryptonox. Explored vulnerability assessment.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Security</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Crypto</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">05</div>
+        <div class="project-photo">
+          <img src="sih_2025.jpeg" alt="SIH 2025">
+        </div>
+        <div class="project-icon">🚀</div>
+        <div class="project-name">SIH 2025 — Smart India Solution</div>
+        <div class="project-desc">Selected project for Smart India Hackathon 2025 internal round. Addressing real national-level problems.</div>
+        <div class="project-stack">
+          <span class="stack-tag">SIH 2025</span>
+          <span class="stack-tag">Full Stack</span>
+          <span class="stack-tag">AI/ML</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="border-style:dashed;border-color:rgba(30,111,255,0.25)">
+        <div class="project-num">+</div>
+        <div class="project-photo" style="background:rgba(30,111,255,0.05);display:flex;align-items:center;justify-content:center">
+          <span style="font-size:3rem;opacity:0.3">✨</span>
+        </div>
+        <div class="project-icon">✨</div>
+        <div class="project-name">More Coming Soon...</div>
+        <div class="project-desc">Always building, always experimenting. New projects in AI/ML and Web are in the pipeline.</div>
+        <div class="project-stack">
+          <span class="stack-tag">AI/ML</span>
+          <span class="stack-tag">2025</span>
         </div>
       </div>
     </div>
@@ -760,23 +1033,37 @@ nav {
     <div class="extras-grid">
       <div class="extra-card reveal">
         <div class="extra-icon">🏊</div>
-        <div>
+        <div style="flex:1">
           <div class="extra-title">Swimming — CICSE 2020</div>
-          <div class="extra-desc">Competed in the CICSE 2020 Swimming Competition, 6th Position Under-17.</div>
+          <div class="extra-desc">Competed in the CICSE 2020 Swimming Competition and secured <strong style="color:var(--blue-4)">6th Position Under-17</strong>. Representing athletic discipline and competitive spirit.</div>
+        </div>
+        <div class="auto-slider" style="width:60px; height:60px; flex-shrink:0; position:relative; overflow:hidden; border-radius:10px; border:1px solid rgba(30,111,255,0.15)">
+          <img src="sports.jpeg" alt="Swimming" class="slider-img active">
+          <img src="Sports Certificates.jpeg" alt="Sports Certificate" class="slider-img">
         </div>
       </div>
+
       <div class="extra-card reveal">
         <div class="extra-icon">🎨</div>
         <div>
           <div class="extra-title">Drawing & Fine Arts</div>
-          <div class="extra-desc">Multiple awards in drawing, exhibition in Digha, West Bengal.</div>
+          <div class="extra-desc">Multiple zonal competition awards in drawing. One of my artworks was selected for an <strong style="color:var(--blue-4)">exhibition in Digha, West Bengal</strong> — a proud creative milestone that speaks to artistic depth.</div>
         </div>
       </div>
+
+      <div class="extra-card reveal">
+        <div class="extra-icon">✈️</div>
+        <div>
+          <div class="extra-title">Travel & Exploration</div>
+          <div class="extra-desc">A passionate traveller who loves discovering new places, cultures and perspectives. Travel fuels creativity and broadens the mind — a core part of who I am.</div>
+        </div>
+      </div>
+
       <div class="extra-card reveal">
         <div class="extra-icon">🌱</div>
         <div>
           <div class="extra-title">Continuous Learning</div>
-          <div class="extra-desc">Always eager to learn new technologies — from AI and ML to emerging frameworks. Actively participates in community events like GDG DevFest.</div>
+          <div class="extra-desc">Always eager to learn new technologies — from AI and ML to emerging frameworks. Actively participates in community events like GDG DevFest to stay on the cutting edge.</div>
         </div>
       </div>
     </div>
@@ -785,35 +1072,61 @@ nav {
 
 <div class="sep"></div>
 
-<!-- SOCIAL / CONTACT -->
+<!-- SOCIAL -->
 <section id="social">
   <div class="section-wrap">
     <div class="section-header reveal">
-      <div class="section-tag">Say My Name</div>
-      <div class="section-title">Let's Connect</div>
+      <div class="section-tag">Let's Connect</div>
+      <div class="section-title">Social Links</div>
       <div class="section-divider"></div>
     </div>
 
     <div class="social-grid">
-      <a href="https://www.linkedin.com/in/aditya-singh-899b36362/" target="_blank" class="social-card reveal">
-        <div class="social-icon">💼</div>
+      <a href="https://www.linkedin.com/in/aditya-singh-899b36362" target="_blank" class="social-card reveal">
+        <div class="social-icon" style="background:rgba(0,119,181,0.2);border:1px solid rgba(0,119,181,0.4)">💼</div>
         <div class="social-info">
           <div class="social-platform">LinkedIn</div>
-          <div class="social-handle">aditya-singh</div>
+          <div class="social-handle">aditya-singh-899b36362</div>
         </div>
       </a>
+
       <a href="https://github.com/adityasingh-cloud" target="_blank" class="social-card reveal">
-        <div class="social-icon">🐙</div>
+        <div class="social-icon" style="background:rgba(36,41,47,0.6);border:1px solid rgba(255,255,255,0.15)">🐙</div>
         <div class="social-info">
           <div class="social-platform">GitHub</div>
           <div class="social-handle">adityasingh-cloud</div>
         </div>
       </a>
+
       <a href="mailto:adityasinghvoid0009@gmail.com" class="social-card reveal">
-        <div class="social-icon">🧪</div>
+        <div class="social-icon" style="background:rgba(234,67,53,0.15);border:1px solid rgba(234,67,53,0.3)">✉️</div>
         <div class="social-info">
-          <div class="social-platform">Email</div>
+          <div class="social-platform">Gmail</div>
           <div class="social-handle">adityasinghvoid0009@gmail.com</div>
+        </div>
+      </a>
+
+      <a href="https://instagram.com" target="_blank" class="social-card reveal">
+        <div class="social-icon" style="background:rgba(193,53,132,0.15);border:1px solid rgba(193,53,132,0.3)">📸</div>
+        <div class="social-info">
+          <div class="social-platform">Instagram</div>
+          <div class="social-handle">@adityasingh</div>
+        </div>
+      </a>
+
+      <a href="https://x.com" target="_blank" class="social-card reveal">
+        <div class="social-icon" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)">𝕏</div>
+        <div class="social-info">
+          <div class="social-platform">X (Twitter)</div>
+          <div class="social-handle">@adityasingh</div>
+        </div>
+      </a>
+
+      <a href="mailto:adityasinghvoid0009@gmail.com" class="social-card reveal" style="border-color:rgba(30,111,255,0.3);background:rgba(6,20,50,0.8)">
+        <div class="social-icon" style="background:rgba(30,111,255,0.2);border:1px solid rgba(30,111,255,0.4)">💬</div>
+        <div class="social-info">
+          <div class="social-platform" style="color:var(--cyan)">Hire Me</div>
+          <div class="social-handle">Open to opportunities</div>
         </div>
       </a>
     </div>
@@ -878,7 +1191,7 @@ class Particle {
     this.vy = (Math.random() - 0.5) * 0.4;
     this.r = Math.random() * 1.5 + 0.3;
     this.alpha = Math.random() * 0.5 + 0.1;
-    this.color = Math.random() > 0.5 ? '30,111,255' : '0,212,255';
+    this.color = Math.random() > 0.5 ? '226,54,54' : '255,0,0';
   }
   update() {
     this.x += this.vx; this.y += this.vy;
@@ -904,7 +1217,7 @@ function drawConnections() {
         ctx.beginPath();
         ctx.moveTo(particles[i].x, particles[i].y);
         ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(30,111,255,${0.08 * (1 - dist / 130)})`;
+        ctx.strokeStyle = `rgba(226,54,54,${0.15 * (1 - dist / 130)})`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
       }
